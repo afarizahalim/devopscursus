@@ -1,0 +1,77 @@
+{
+	"info": {
+		"_postman_id": "c3b0f41e-ff79-45a6-aecf-09ea6195815a",
+		"name": "Demobook",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get all posts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts/",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get a single post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Code Retour 200\", function () {",
+							"pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Temps de réponse inférieur à 400ms\", function () {",
+							"pm.expect(pm.response.responseTime).to.be.below(400);",
+							"});",
+							"",
+							"pm.test(\"Réponse Json n’est pas vide\", function (){",
+							"pm.expect(pm.response).to.be.json;",
+							"});",
+							"",
+							"pm.test(\"userId est egale a 1\", function (){",
+							"var jsonRes = pm.response.json();",
+							"pm.expect(jsonRes.userId).to.eq(1);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/post/{{PostID}}",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts",
+						"{{PostID}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
